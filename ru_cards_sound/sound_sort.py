@@ -30,4 +30,7 @@ for F in os.listdir(dir):
         subdir = re.split(r'(.wav|(_(attack.*|enter_play.*|trigger|rewind|last_gasp|reward|hit|pilfer).wav))', F)[0]
         # mkdir has no exist_ok and throw exception
         os.makedirs(subdir, exist_ok=True)
-        shutil.move(F, subdir)
+        try:
+            shutil.move(F, subdir)
+        except OSError:
+            os.remove(F)
